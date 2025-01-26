@@ -1,0 +1,195 @@
+<?xml version="1.0" ?>
+<robot name="nav_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find nav_base_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find nav_base_description)/urdf/nav_base.trans" />
+<xacro:include filename="$(find nav_base_description)/urdf/nav_base.gazebo" />
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="6.149565235238641e-10 -0.016078390645052006 0.37828011578627335" rpy="0 0 0"/>
+    <mass value="21.41391712472452"/>
+    <inertia ixx="1.38862" iyy="1.408401" izz="0.370036" ixy="-0.0" iyz="-0.037569" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="ria_1">
+  <inertial>
+    <origin xyz="-9.865499031735133e-07 -0.009638988351755312 -0.5762689736376121" rpy="0 0 0"/>
+    <mass value="16.79659387973294"/>
+    <inertia ixx="0.642133" iyy="0.686451" izz="0.138085" ixy="-0.0" iyz="-0.018653" ixz="-2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0 -0.0 -0.7947" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/ria_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0 -0.0 -0.7947" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/ria_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="battery_1">
+  <inertial>
+    <origin xyz="0.00057147808117626 -0.0012158961468835012 0.04602061395488011" rpy="0 0 0"/>
+    <mass value="4.396570665211319"/>
+    <inertia ixx="0.009889" iyy="0.016231" izz="0.019927" ixy="0.0" iyz="0.000205" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 0.0075 -0.1352" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/battery_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 0.0075 -0.1352" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/battery_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_hub_1">
+  <inertial>
+    <origin xyz="0.033454019311522615 -3.3860007407626735e-07 -7.110313801114709e-06" rpy="0 0 0"/>
+    <mass value="0.8909676684503179"/>
+    <inertia ixx="0.002514" iyy="0.001474" izz="0.001474" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.1699 0.105 -0.0952" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/left_hub_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.1699 0.105 -0.0952" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/left_hub_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_hub_1">
+  <inertial>
+    <origin xyz="-0.03345491780339688 -3.995626330077773e-07 -7.939265270290319e-06" rpy="0 0 0"/>
+    <mass value="0.8909467178115635"/>
+    <inertia ixx="0.002513" iyy="0.001474" izz="0.001474" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.1699 0.105 -0.0952" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/right_hub_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.1699 0.105 -0.0952" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/right_hub_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_caster_1">
+  <inertial>
+    <origin xyz="0.017895183143639193 8.03523914072457e-14 1.9789989091911764e-11" rpy="0 0 0"/>
+    <mass value="0.0975127090955"/>
+    <inertia ixx="4.8e-05" iyy="3.3e-05" izz="3.3e-05" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.093 -0.127 -0.0452" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/right_caster_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.093 -0.127 -0.0452" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/right_caster_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_caster_1">
+  <inertial>
+    <origin xyz="-0.01789518314363968 8.03523914072457e-14 1.9789864191821493e-11" rpy="0 0 0"/>
+    <mass value="0.09751270909550007"/>
+    <inertia ixx="4.8e-05" iyy="3.3e-05" izz="3.3e-05" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.093 -0.127 -0.0452" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/left_caster_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.093 -0.127 -0.0452" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find nav_base_description)/meshes/left_caster_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="riaj1" type="fixed">
+  <origin xyz="0.0 0.0 0.7947" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="ria_1"/>
+</joint>
+
+<joint name="batteryj2" type="fixed">
+  <origin xyz="0.0 -0.0075 0.1352" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="battery_1"/>
+</joint>
+
+<joint name="lwj1" type="continuous">
+  <origin xyz="0.1699 -0.105 0.0952" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="left_hub_1"/>
+  <axis xyz="1.0 -0.0 0.0"/>
+</joint>
+
+<joint name="rwj1" type="continuous">
+  <origin xyz="-0.1699 -0.105 0.0952" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="right_hub_1"/>
+  <axis xyz="1.0 0.0 -0.0"/>
+</joint>
+
+<joint name="rcj1" type="continuous">
+  <origin xyz="-0.093 0.127 0.0452" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="right_caster_1"/>
+  <axis xyz="1.0 0.0 -0.0"/>
+</joint>
+
+<joint name="lcj1" type="continuous">
+  <origin xyz="0.093 0.127 0.0452" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="left_caster_1"/>
+  <axis xyz="1.0 -0.0 0.0"/>
+</joint>
+
+</robot>

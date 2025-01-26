@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<robot name="nav_base" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<transmission name="lwj1_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="lwj1">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="lwj1_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="rwj1_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="rwj1">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="rwj1_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="rcj1_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="rcj1">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="rcj1_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="lcj1_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="lcj1">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="lcj1_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+</robot>
