@@ -1,0 +1,246 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="twowheel">
+
+  <gazebo>
+    <plugin name='gazebo_ros2_control' filename='libgazebo_ros_diff_drive.so'>
+
+      <!-- Misc configs-->
+      <alwaysOn>true</alwaysOn>
+      <legacyMode>false</legacyMode>
+      <updateRate>100</updateRate>
+      <rosDebugLevel>na</rosDebugLevel>
+
+      <!-- Joints -->
+      <left_joint>Revolute_4</left_joint>
+      <right_joint>Revolute_5</right_joint>
+
+      <!-- Wheel Information -->
+      <wheel_separation>0.40</wheel_separation>
+      <wheel_diameter>0.2</wheel_diameter>
+
+      <!-- Limits -->
+      <max_wheel_torque>2000</max_wheel_torque>
+      <max_wheel_acceleration>10.0</max_wheel_acceleration>
+
+      <!-- topics  -->
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometrySource>world</odometrySource>
+
+      <!-- Frames -->
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>world_link</robot_base_frame>
+
+      <!-- outputs -->
+      <publishTf>1</publishTf>
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>true</publish_wheel_tf>
+      <publishWheelJointState>true</publishWheelJointState>
+
+    </plugin>
+  </gazebo>
+
+
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <material name="orange">
+    <color rgba="1 0.3 0.1 1"/>
+  </material>
+
+  <material name="blue">
+        <color rgba="0.2 0.2 1 1"/>
+  </material>
+
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+
+  <!-- Fixed World Link -->
+  <link name="world_link"/>
+
+  <!-- Robot Base Link -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.002780728811941062 1.1577109320958194e-18 0.0013228938920329609" rpy="0 0 0"/>
+      <mass value="36.537145623641194"/>
+      <inertia ixx="0.6010205950742287" iyy="1.2158897464978466" izz="1.5659286455267734" ixy="-2.5599070839083687e-16" iyz="-4.453971624044988e-18" ixz="-0.010698082638062826"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/rohith/ros2/src/twowheel_drive/urdf/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/rohith/ros2/src/twowheel_drive/urdf/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/White</material>
+    <mu1 value="0.2"/>
+    <mu2 value="0.2"/>
+  </gazebo>
+
+  <!-- Left Wheel -->
+  <link name="LEFT_WHEEL1">
+    <inertial>
+      <origin xyz="-3.608224830031759e-16 0.03750000000000023 0.0" rpy="0 0 0"/>
+      <mass value="2.1912608758788803"/>
+      <inertia ixx="0.006505305725265309" iyy="0.010956304379394308" izz="0.0065053057252650315" ixy="1.3877787807814457e-17" iyz="-1.3877787807814457e-17" ixz="6.938893903907228e-18"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.15 -0.2 0.08" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/rohith/ros2/src/twowheel_drive/urdf/meshes/LEFT_WHEEL1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0.15 -0.2 0.08" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/rohith/ros2/src/twowheel_drive/urdf/meshes/LEFT_WHEEL1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="LEFT_WHEEL1">
+    <material>Gazebo/Black</material>
+    <mu1 value="0.5"/>
+    <mu2 value="0.5"/>
+  </gazebo>
+
+  <!-- Right Wheel -->
+  <link name="RIGHT_WHEEL1">
+    <inertial>
+      <origin xyz="-1.6653345369377348e-16 -0.03750000000000042 0.0" rpy="0 0 0"/>
+      <mass value="2.1912608758788803"/>
+      <inertia ixx="0.006505305725265226" iyy="0.010956304379394294" izz="0.0065053057252649205" ixy="0.0" iyz="2.0816681711721685e-17" ixz="6.938893903907228e-18"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.15 0.275 0.08" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/rohith/ros2/src/twowheel_drive/urdf/meshes/RIGHT_WHEEL1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0.15 0.4 0.08" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/rohith/ros2/src/twowheel_drive/urdf/meshes/RIGHT_WHEEL1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="RIGHT_WHEEL1">
+    <material>Gazebo/Black</material>
+    <mu1 value="0.5"/>
+    <mu2 value="0.5"/>
+  </gazebo>
+
+  <!-- Caster Wheel -->
+  <link name="CASTER">
+    <inertial>
+      <origin xyz="2.498001805406602e-16 6.245004513516507e-17 0.0" rpy="0 0 0"/>
+      <mass value="4.440117617073574"/>
+      <inertia ixx="0.017760470468294452" iyy="0.01776047046829446" izz="0.017760470468293987" ixy="1.8488927466117464e-32" iyz="-1.2340024113655119e-17" ixz="-6.938893903907228e-18"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.15 -0.0 0.08" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/rohith/ros2/src/twowheel_drive/urdf/meshes/CASTER1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.15 -0.0 0.08" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/rohith/ros2/src/twowheel_drive/urdf/meshes/CASTER1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="CASTER">
+    <material>Gazebo/Orange</material>
+    <mu1 value="0.001"/>
+    <mu2 value="0.001"/>
+  </gazebo>
+
+  <!-- lidar -->
+  <link name="LIDAR1">
+    <inertial>
+      <origin xyz="3.0531133177191805e-16 9.238097963798017e-17 0.015000000000000013" rpy="0 0 0"/>
+      <mass value="0.15984423421464863"/>
+      <inertia ixx="7.592601125195513e-05" iyy="7.592601125195643e-05" izz="0.00012787538737171582" ixy="4.820321919396535e-20" iyz="-1.0845724318642185e-19" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.24 -0.0 -0.125" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/rohith/ros2/src/twowheel_drive/urdf/meshes/LIDAR1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.24 -0.0 -0.125" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/rohith/ros2/src/twowheel_drive/urdf/meshes/LIDAR1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="LIDAR1">
+    <material>Gazebo/Blue</material>
+    <mu1 value="0.2"/>
+    <mu2 value="0.2"/>
+  </gazebo>
+
+  <!-- World to Base Link Joint (Fixed) -->
+  <joint name="world_to_base" type="fixed">
+    <parent link="world_link" />
+    <child link="base_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+
+  <!-- Base to Left Wheel Joint -->
+  <joint name="Revolute_4" type="continuous">
+    <origin xyz="-0.15 0.2 -0.08" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="LEFT_WHEEL1"/>
+    <axis xyz="-0.0 1.0 0.0"/>
+    <limit effort="1000" velocity="1000"/>
+    <dynamics damping="1.0" friction="1.0"/>
+  </joint>
+
+  <!-- Base to Right Wheel Joint -->
+  <joint name="Revolute_5" type="continuous">
+    <origin xyz="-0.15 -0.2 -0.08" rpy="-3.14 0 0"/>
+    <parent link="base_link"/>
+    <child link="RIGHT_WHEEL1"/>
+    <axis xyz="0.0 -1.0 0.0"/>
+    <limit effort="1000" velocity="1000"/>
+    <dynamics damping="1.0" friction="1.0"/>
+  </joint>
+
+  <!-- Base to Caster Wheel Joint -->
+  <joint name="Rigid_6" type="fixed">
+    <origin xyz="0.15 0.0 -0.08" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="CASTER"/>
+  </joint>
+
+  <!-- Base to lidar -->
+  <joint name="Rigid_7" type="fixed">
+    <origin xyz="0.24 0.0 0.125" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="LIDAR1"/>
+  </joint>
+
+</robot>
