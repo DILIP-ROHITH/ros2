@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="nav_base" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<xacro:property name="body_color" value="Gazebo/Silver" />
+
+<gazebo reference="base_link">
+  <material>${body_color}</material>
+  <mu1 value="0.2"/>
+  <mu2 value="0.2"/>
+  <self_collide>true</self_collide>
+  <gravity>true</gravity> 
+</gazebo>
+
+<gazebo reference="ria_1">
+  <material>${body_color}</material>
+  <mu1 value="0.2"/>
+  <mu2 value="0.2"/>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="battery_1">
+  <material>${body_color}</material>
+  <mu1 value="0.2"/>
+  <mu2 value="0.2"/>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="left_hub_1">
+  <material>${body_color}</material>
+  <mu1 value="0.5"/>
+  <mu2 value="0.5"/>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="right_hub_1">
+  <material>${body_color}</material>
+  <mu1 value="0.5"/>
+  <mu2 value="0.5"/>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="right_caster_1">
+  <material>${body_color}</material>
+  <mu1 value="0.00"/>
+  <mu2 value="0.00"/>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="left_caster_1">
+  <material>${body_color}</material>
+  <mu1 value="0.00"/>
+  <mu2 value="0.00"/>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo>
+  <plugin name='gazebo_ros2_control' filename='libgazebo_ros_diff_drive.so'>
+
+      <!-- Misc configs-->
+      <alwaysOn>true</alwaysOn>
+      <legacyMode>false</legacyMode>
+      <updateRate>100</updateRate>
+      <rosDebugLevel>na</rosDebugLevel>
+
+      <!-- Joints -->
+      <left_joint>lwj1</left_joint>
+      <right_joint>rwj1</right_joint>
+
+      <!-- Wheel Information -->
+      <wheel_separation>0.460</wheel_separation>
+      <wheel_diameter>0.1524</wheel_diameter>
+
+      <!-- Limits -->
+      <max_wheel_torque>200</max_wheel_torque>
+      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+
+      <!-- topics  -->
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometrySource>world</odometrySource>
+
+      <!-- Frames -->
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+
+      <!-- outputs -->
+      <publishTf>1</publishTf>
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>true</publish_wheel_tf>
+      <publishWheelJointState>true</publishWheelJointState>
+
+    </plugin>
+  </gazebo>
+
+</robot>
