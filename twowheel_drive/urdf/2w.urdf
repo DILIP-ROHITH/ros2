@@ -1,48 +1,6 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="twowheel">
 
-  <gazebo>
-    <plugin name='gazebo_ros2_control' filename='libgazebo_ros_diff_drive.so'>
-
-      <!-- Misc configs-->
-      <alwaysOn>true</alwaysOn>
-      <legacyMode>false</legacyMode>
-      <updateRate>100</updateRate>
-      <rosDebugLevel>na</rosDebugLevel>
-
-      <!-- Joints -->
-      <left_joint>Revolute_4</left_joint>
-      <right_joint>Revolute_5</right_joint>
-
-      <!-- Wheel Information -->
-      <wheel_separation>0.40</wheel_separation>
-      <wheel_diameter>0.2</wheel_diameter>
-
-      <!-- Limits -->
-      <max_wheel_torque>2000</max_wheel_torque>
-      <max_wheel_acceleration>10.0</max_wheel_acceleration>
-
-      <!-- topics  -->
-      <commandTopic>cmd_vel</commandTopic>
-      <odometryTopic>odom</odometryTopic>
-      <odometrySource>world</odometrySource>
-
-      <!-- Frames -->
-      <odometry_frame>odom</odometry_frame>
-      <robot_base_frame>world_link</robot_base_frame>
-
-      <!-- outputs -->
-      <publishTf>1</publishTf>
-      <publish_odom>true</publish_odom>
-      <publish_odom_tf>true</publish_odom_tf>
-      <publish_wheel_tf>true</publish_wheel_tf>
-      <publishWheelJointState>true</publishWheelJointState>
-
-    </plugin>
-  </gazebo>
-
-
-
   <material name="white">
     <color rgba="1 1 1 1"/>
   </material>
@@ -59,8 +17,15 @@
     <color rgba="0 0 0 1"/>
   </material>
 
-  <!-- Fixed World Link -->
-  <link name="world_link"/>
+  <!-- BASE_FOOTPRINT LINK -->
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.5" rpy="0 0 0"/>
+  </joint>
+
+  <link name="base_footprint">
+  </link>
 
   <!-- Robot Base Link -->
   <link name="base_link">
@@ -88,6 +53,8 @@
     <material>Gazebo/White</material>
     <mu1 value="0.2"/>
     <mu2 value="0.2"/>
+    <self_collide>true</self_collide>
+    <gravity>true</gravity>
   </gazebo>
 
   <!-- Left Wheel -->
@@ -116,6 +83,7 @@
     <material>Gazebo/Black</material>
     <mu1 value="0.5"/>
     <mu2 value="0.5"/>
+    <self_collide>true</self_collide>
   </gazebo>
 
   <!-- Right Wheel -->
@@ -144,6 +112,7 @@
     <material>Gazebo/Black</material>
     <mu1 value="0.5"/>
     <mu2 value="0.5"/>
+    <self_collide>true</self_collide>
   </gazebo>
 
   <!-- Caster Wheel -->
@@ -172,6 +141,7 @@
     <material>Gazebo/Orange</material>
     <mu1 value="0.001"/>
     <mu2 value="0.001"/>
+    <self_collide>true</self_collide>
   </gazebo>
 
   <!-- lidar -->
@@ -200,14 +170,8 @@
     <material>Gazebo/Blue</material>
     <mu1 value="0.2"/>
     <mu2 value="0.2"/>
+    <self_collide>false</self_collide>
   </gazebo>
-
-  <!-- World to Base Link Joint (Fixed) -->
-  <joint name="world_to_base" type="fixed">
-    <parent link="world_link" />
-    <child link="base_link" />
-    <origin xyz="0 0 0" rpy="0 0 0" />
-  </joint>
 
   <!-- Base to Left Wheel Joint -->
   <joint name="Revolute_4" type="continuous">
@@ -215,8 +179,6 @@
     <parent link="base_link"/>
     <child link="LEFT_WHEEL1"/>
     <axis xyz="-0.0 1.0 0.0"/>
-    <limit effort="1000" velocity="1000"/>
-    <dynamics damping="1.0" friction="1.0"/>
   </joint>
 
   <!-- Base to Right Wheel Joint -->
@@ -225,8 +187,6 @@
     <parent link="base_link"/>
     <child link="RIGHT_WHEEL1"/>
     <axis xyz="0.0 -1.0 0.0"/>
-    <limit effort="1000" velocity="1000"/>
-    <dynamics damping="1.0" friction="1.0"/>
   </joint>
 
   <!-- Base to Caster Wheel Joint -->
@@ -242,5 +202,75 @@
     <parent link="base_link"/>
     <child link="LIDAR1"/>
   </joint>
+
+  <gazebo>
+    <plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
+
+      <!-- Misc configs-->
+      <alwaysOn>true</alwaysOn>
+      <legacyMode>false</legacyMode>
+      <updateRate>30</updateRate>
+      <rosDebugLevel>debug</rosDebugLevel>
+
+      <!-- Joints -->
+      <left_joint>Revolute_4</left_joint>
+      <right_joint>Revolute_5</right_joint>
+
+      <!-- Wheel Information -->
+      <wheel_separation>0.40</wheel_separation>
+      <wheel_diameter>0.2</wheel_diameter>
+
+      <!-- Limits -->
+      <max_wheel_torque>200</max_wheel_torque>
+      <max_wheel_acceleration>1</max_wheel_acceleration>
+
+      <!-- topics  -->
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometrySource>world</odometrySource>
+
+      <!-- Frames -->
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_footprint</robot_base_frame>
+
+      <!-- outputs -->
+      <publishTf>true</publishTf>
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>true</publish_wheel_tf>
+      <publishWheelJointState>true</publishWheelJointState>
+
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="LIDAR1">
+        <sensor name="laser" type="ray">
+            <pose> 0 0 0 0 0 0 </pose>
+            <visualize>true</visualize>
+            <update_rate>10</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>360</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-3.14</min_angle>
+                        <max_angle>3.14</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.3</min>
+                    <max>12</max>
+                    <resolution>0.01</resolution>
+                </range>
+            </ray>
+            <plugin name="laser_controller" filename="libgazebo_ros_ray_sensor.so">
+                <ros>
+                    <argument>~/out:=scan</argument>
+                </ros>
+                <output_type>sensor_msgs/LaserScan</output_type>
+                <frame_name>LIDAR1</frame_name>
+            </plugin>
+        </sensor>
+    </gazebo>
 
 </robot>

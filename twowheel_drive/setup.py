@@ -9,13 +9,23 @@ setup(
     version='0.0.0',
     packages=find_packages(exclude=['test']),
     data_files=[
-        # Install the launch files in the shared directory
-        (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
-        # Install the URDF files in the shared directory
-        (os.path.join('share', package_name, 'urdf'), glob('urdf/*.urdf')),
-        ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
+        # Resource index
+        ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
+
+        # Install package.xml
         ('share/' + package_name, ['package.xml']),
+
+        # Install launch files
+        (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
+
+        # Install URDF and Xacro files
+        (os.path.join('share', package_name, 'urdf'), glob('urdf/*.urdf') + glob('urdf/*.xacro')),
+
+        # Install world files
+        (os.path.join('share', package_name, 'world'), glob('world/*.world')),
+
+        # Install RViz and YAML config files
+        (os.path.join('share', package_name, 'config'), glob('config/*.rviz') + glob('config/*.yaml')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
